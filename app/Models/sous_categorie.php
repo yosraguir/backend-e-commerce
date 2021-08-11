@@ -2,16 +2,10 @@
 
 namespace App\Models;
 
-use App\Model\Categorie;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Article extends Model
+class sous_categorie extends Model
 {
     use HasFactory;
-
-    public function categorie()
-    {
-        return $this->belongsTo(Categorie::class);
-    }
 }
