@@ -3,23 +3,20 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
-use App\Article;
+use App\Models\Article;
 
 class ArticleController extends Controller
 {
-    //
-     public function index()
-        {
-            return view('FrontEnd.home');
-        }
+
     public function add(Request $request)
-    {
+   {
+
         $validator=Validator::make($request->all(),[
         'name'=>'required',
         'price'=>'required',
         'description'=>'required',
         'brand'=>'required',
-        'image'=>'required|image',
+        //'image'=>'required|image',
 
         ]);
         if($validator->fails())
@@ -29,19 +26,26 @@ class ArticleController extends Controller
         $article = new Article();
         $article->name=$request->name;
         $article->price=$request->price;
+        $article->old_price=$request->old_price;
         $article->description=$request->description;
         $article->brand=$request->brand;
+        $article->weight=$request->weight;
+        $article->size=$request->size;
+        $article->color=$request->color;
+        $article->availablity=$request->availablity;
+        $article->ref=$request->ref;
         $article->image=$request->image;
+        $article->categorie_id=$request->categorie_id;
         $article->save();
 
         //storage image
-        $url="http://localhost:8000/storage/";
+        /*$url="http://localhost:8000/storage/";
         $file = $request->file('image');
         $extension = $file->getClientOriginalExtension();
         $path = $request->file('image')->storeAs('proimages/', $article->id.'.'.$extension);
         $article->image=$path;
         $article->imgpath=$url.$path;
-        $article->save();
+        $article->save();*/
     }
       public function update(Request $request)
                     {

@@ -14,16 +14,22 @@ class CreateArticlesTable extends Migration
     public function up()
     {
         Schema::create('articles', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
+            $table->integer('categorie_id')->unsigned();
             $table->string('name');
             $table->string('price');
+            $table->string('old_price');
             $table->string('description');
             $table->string('brand');
+            $table->string('weight');
+            $table->string('size');
+            $table->string('color');
+            $table->string('availablity');
+            $table->string('ref');
             $table->string('image')->default('0');
             $table->string('imgpath')->default('0');
             $table->timestamps();
-
-            $table->foreignId('categorie_id')->constrained();
+            $table->foreign('categorie_id')->references('id')->on('categories');
         });
     }
 

@@ -8,10 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
 {
-    use HasFactory;
+    protected $table="articles";
+    protected $fillable = ['name','price','description','brand','image','categorie_id'];
+
 
     public function categorie()
     {
-        return $this->belongsTo(Categorie::class);
+        return $this->belongsTo('App\Article');
     }
 }

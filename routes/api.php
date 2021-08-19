@@ -1,5 +1,5 @@
 <?php
-
+use APP\Http\ArticleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,10 +19,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 //Article routes
-Route::any('add', 'ArticleController@add');
-Route::any('update', 'ArticleController@update');
-Route::any('delete', 'ArticleController@delete');
-Route::any('show', 'ArticleController@show');
+
+Route::post('/add','App\Http\Controllers\ArticleController@add');
+Route::any('/update', 'App\Http\Controllers\ArticleController@update');
+Route::any('/delete', 'App\Http\Controllers\ArticleController@delete');
+Route::any('/show', 'App\Http\Controllers\ArticleController@show');
 
 //user routes
 Route::any('register', 'UserController@register');
