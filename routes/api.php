@@ -20,9 +20,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 //Article routes
 
-Route::post('/add','App\Http\Controllers\ArticleController@add');
-Route::any('/update', 'App\Http\Controllers\ArticleController@update');
-Route::any('/delete', 'App\Http\Controllers\ArticleController@delete');
+Route::post('/article/add','App\Http\Controllers\ArticleController@add');
+Route::post('/article/{id}', 'App\Http\Controllers\ArticleController@update');
+Route::delete('/article/{id}', 'App\Http\Controllers\ArticleController@delete');
 Route::any('/show', 'App\Http\Controllers\ArticleController@show');
 
 //user routes

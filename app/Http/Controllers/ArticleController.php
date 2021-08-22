@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\Article;
+use App\Http\Repository\ArticleRepository;
+use App\Http\Requests\ArticleUpdateRequest;
 
 class ArticleController extends Controller
 {
@@ -39,7 +41,7 @@ class ArticleController extends Controller
         $article->save();
 
         //storage image
-        /*$url="http://localhost:8000/storage/";
+        /*$url = "http://localhost:8000/storage/";
         $file = $request->file('image');
         $extension = $file->getClientOriginalExtension();
         $path = $request->file('image')->storeAs('proimages/', $article->id.'.'.$extension);
@@ -47,34 +49,41 @@ class ArticleController extends Controller
         $article->imgpath=$url.$path;
         $article->save();*/
     }
-      public function update(Request $request)
-                    {
-                        $validator=Validator::make($request->all(),[
-                        'id'=>'required',
-                        'name'=>'required',
-                        'price'=>'required',
-                        'description'=>'required',
-                        'brand'=>'required',
+      public function update(ArticleUpdateRequest $request, $id)
+         {
+            $name        = $request->input('name');
+            $price       = $request->input('price');
+            $old_price   = $request->input('old_price');
+            $description = $request->input('description');
+            $brand       = $request->input('brand');
+            $weight      = $request->input('weight');
+            $size        = $request->input('size');
+            $color       = $request->input('color');
+            $availablity = $request->input('availablity');
+            $ref         = $request->input('ref');
+            $categorie_id= $request->input('categorie_id');
 
-                        ]);
-                        if($validator->fails())
-                        {
-                            return response()->json(['error'=>$validator->errors()->all()],409);
-                        }
-                        $article=article::find($request->id);
-                        $article->name=$request->name;
-                        $article->price=$request->price;
-                        $article->description=$request->description;
-                        $article->brand=$request->brand;
-                        $article->image=$request->image;
-                        $article->save();
-                        return response()->json(['message'=>"Article Successfully updated"]);
+            $article = Article::findOrFail($id);
+            $articleRepository = new ArticleRepository($article);
+            $article = $articleRepository->update($name, $price, $old_price, $description, $brand, $weight, $size, $color, $availability, $ref, $categorie_id, $id);
 
-                    }
+              return response()->json(['status' => 'success', 'message' => 'article updated successfully'], 200);
+         }
 
-    public function delete(Request $request)
-        {
-            $validator=Validator::make($request->all(),[
+       public function delete($id)
+
+             {
+                 $article = Article::findOrFail($id);
+                 $article->delete();
+                 if ($article) {
+                     return response()->json(['success' => true,'message' => 'article Successfully Deleted!',], 200);
+                 } else {
+                     return response()->json(['success' => false,'message' => 'article Failed to Delete!',], 500);
+                 }
+
+             }
+
+            /*$validator=Validator::make($request->all(),[
             'id'=>'required',
 
             ]);
@@ -84,9 +93,9 @@ class ArticleController extends Controller
             }
             $article=article::find($request->id->delete);
 
-            return response()->json(['message'=>"Article Successfully deleted"]);
+            return response()->json(['message'=>"Article Successfully deleted"]);*/
 
-        }
+
 
         public function show( Request $request)
         {
