@@ -1,5 +1,5 @@
 <?php
-use APP\Http\ArticleController;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,10 +23,26 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('/article/add','App\Http\Controllers\ArticleController@add');
 Route::post('/article/{id}', 'App\Http\Controllers\ArticleController@update');
 Route::delete('/article/{id}', 'App\Http\Controllers\ArticleController@delete');
-Route::any('/show', 'App\Http\Controllers\ArticleController@show');
+Route::get('/article/show/{id}', 'App\Http\Controllers\ArticleController@show');
+
+//Categorie routes
+Route::post('/categorie/add','App\Http\Controllers\CategorieController@create');
+Route::post('/categorie/{id}', 'App\Http\Controllers\CategorieController@update');
+Route::delete('/categorie/{id}', 'App\Http\Controllers\CategorieController@delete');
+Route::get('/categorie/show/{id}', 'App\Http\Controllers\CategorieController@show');
+
+
+//Sous_Categorie routes
+Route::post('/SousCategorie/add','App\Http\Controllers\SousCategorieController@create');
+Route::post('/SousCategorie/{id}', 'App\Http\Controllers\SousCategorieController@update');
+Route::delete('/SousCategorie/{id}', 'App\Http\Controllers\SousCategorieController@delete');
+Route::get('/SousCategorie/show/{id}', 'App\Http\Controllers\SousCategorieController@show');
+
 
 //user routes
 Route::any('register', 'UserController@register');
 Route::any('login', 'UserController@login');
+
+
 
 

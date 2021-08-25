@@ -97,9 +97,17 @@ class ArticleController extends Controller
 
 
 
-        public function show( Request $request)
-        {
-            session(['keys'=>$request->keys]);
+            public function show($id)
+                {
+                    $article = Article::find($id);
+                        if ($article) {
+                        return response()->json(['success' => true,'message' => 'Detail article!','data'    => $article], 200);
+                        }
+                        else {
+                        return response()->json(['success' => false,'message' => 'article Not Found!','data'    => ''], 404);
+                        }
+                }
+            /*session(['keys'=>$request->keys]);
             $article=article::where(function($q){
                 $q->where('articles.id','LIKE','%', session('keys').'%')
                   ->orwhere('articles.name','LIKE','%'.session('keys').'%')
@@ -109,6 +117,8 @@ class ArticleController extends Controller
 
             })->select('articles.*')->get();
             return response()->json(['articles'=>$articles]);
-        }
+            }
+            */
+
 
 }
