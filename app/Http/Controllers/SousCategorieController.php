@@ -45,7 +45,7 @@ class SousCategorieController extends Controller
 
                      }
 
-         public function show($id)
+    public function show($id)
                      {
                           $sousCategorie = Sous_Categorie::find($id);
                                  if ($sousCategorie) {
