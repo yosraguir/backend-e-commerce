@@ -1,14 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\User;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Http\Request;
 
 class userController extends Controller
 {
-    //
+    /////////function register///////////
      public function register(Request $request)
         {
             $validator=Validator::make($request->all(),[
@@ -20,7 +19,7 @@ class userController extends Controller
             {
                 return response()->json(['error'=>$validator->errors()->all()],409);
             }
-            $article = new User();
+            $user = new User();
             $user->name=$request->name;
             $user->email=$request->email;
             $user->password=encrypt($request->password);
@@ -29,7 +28,8 @@ class userController extends Controller
 
         }
 
-     public function login(Request $Request) {
+     ////////function login///////////
+     public function login(Request  $request) {
 
      $validator=Validator::make($request->all(),[
         'email'=>'required',
@@ -37,12 +37,12 @@ class userController extends Controller
 
      ]);
      if($validator->fails())
-                 {
-                     return response()->json(['error'=>$validator->errors()->all()],409);
-                 }
+        {
+            return response()->json(['error'=>$validator->errors()->all()],409);
+        }
      $user=User::where('email',$request->email)->get()->first();
      $password=decrypt($user->password);
-     if($user && $password==request->password)
+     if($user && $password==$request->password)
      {
             return response()->json(['user'=>$user]);
 

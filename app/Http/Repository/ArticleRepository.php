@@ -2,7 +2,7 @@
 
 namespace App\Http\Repository;
 use App\Models\Article;
-
+use App\Models\Image_Article;
 Class ArticleRepository
 {
         /**
@@ -34,6 +34,15 @@ Class ArticleRepository
             $article->availablity = $availablity;
             $article->ref         = $ref;
             $article->image       = $image;
+            //////////////code d'upload multiple image/////////////
+            /*if(is_array($image_articles)) {
+                foreach($image_articles as $image){
+                    $imageArticle = new Image_Article();
+                    $imageArticle->img         = $image;
+                    $imageArticle->article_id  = $article->id;
+                    $article->image_articles()->save($imageArticle);
+                }
+            }*/
             $article->categorie_id= $categorie_id;
             $article->save();
             return $article;

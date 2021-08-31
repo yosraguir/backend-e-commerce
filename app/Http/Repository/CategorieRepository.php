@@ -27,7 +27,7 @@ Class CategorieRepository
             $categorie->save();
             return $categorie;
         }
-         public function update($name)
+        public function update($name)
          {
 
 

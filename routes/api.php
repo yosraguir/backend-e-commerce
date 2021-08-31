@@ -18,21 +18,21 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//Article routes
+////////Article routes/////////
 
 Route::post('/article/add','App\Http\Controllers\ArticleController@add');
 Route::post('/article/{id}', 'App\Http\Controllers\ArticleController@update');
 Route::delete('/article/{id}', 'App\Http\Controllers\ArticleController@delete');
 Route::get('/article/show/{id}', 'App\Http\Controllers\ArticleController@show');
 
-//Categorie routes
+/////////Categorie routes/////////
 Route::post('/categorie/add','App\Http\Controllers\CategorieController@create');
 Route::post('/categorie/{id}', 'App\Http\Controllers\CategorieController@update');
 Route::delete('/categorie/{id}', 'App\Http\Controllers\CategorieController@delete');
 Route::get('/categorie/show/{id}', 'App\Http\Controllers\CategorieController@show');
 
 
-//Sous_Categorie routes
+////////////Sous_Categorie routes//////////
 Route::post('/SousCategorie/add','App\Http\Controllers\SousCategorieController@create');
 Route::post('/SousCategorie/{id}', 'App\Http\Controllers\SousCategorieController@update');
 Route::delete('/SousCategorie/{id}', 'App\Http\Controllers\SousCategorieController@delete');
@@ -40,8 +40,8 @@ Route::get('/SousCategorie/show/{id}', 'App\Http\Controllers\SousCategorieContro
 
 
 //user routes
-Route::any('register', 'UserController@register');
-Route::any('login', 'UserController@login');
+Route::post('/register', 'App\Http\Controllers\UserController@register');
+Route::post('/login', 'App\Http\Controllers\UserController@login');
 
 
 

@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Model\Categorie;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,5 +14,9 @@ class Article extends Model
     public function categorie()
     {
         return $this->belongsTo('App\Article');
+    }
+    public function image_articles()
+    {
+        return $this->hasMany('App\Models\Image_Article');
     }
 }

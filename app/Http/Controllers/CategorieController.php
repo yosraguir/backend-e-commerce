@@ -10,7 +10,9 @@ use App\Http\Repository\CategorieRepository;
 
 class CategorieController extends Controller
 {
-    public function create(CategorieCreateRequest $request)
+
+        //function create Categorie
+        public function create(CategorieCreateRequest $request)
         {
             $name                = $request->input('name');
             $categorie           = CategorieRepository::create($name);
@@ -18,7 +20,8 @@ class CategorieController extends Controller
 
         }
 
-    public function update(CategorieUpdateRequest $request, $id)
+        //function update Categorie
+        public function update(CategorieUpdateRequest $request, $id)
              {
                 $name                = $request->input('name');
                 $categorie           = Categorie::findOrFail($id);
@@ -28,8 +31,8 @@ class CategorieController extends Controller
                   return response()->json(['status' => 'success', 'message' => 'categorie updated successfully'], 200);
              }
 
-
-     public function delete($id)
+        //function delete Categorie
+        public function delete($id)
 
                  {
                      $categorie = Categorie::findOrFail($id);
@@ -42,7 +45,8 @@ class CategorieController extends Controller
 
                  }
 
-     public function show($id)
+        //function show Categorie
+        public function show($id)
                      {
                          $categorie = Categorie::find($id);
                              if ($categorie) {

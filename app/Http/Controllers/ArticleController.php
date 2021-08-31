@@ -11,7 +11,7 @@ use function App\Http\Helpers\uploadFile;
 //use function App\Http\Helpers\helpers\uploadFile ;
 class ArticleController extends Controller
 {
-
+    ///////////function add article///////////
       public function add(ArticleCreateRequest $request)
    {
 
@@ -29,45 +29,18 @@ class ArticleController extends Controller
        $image       = uploadFile($imageFile);
        $categorie_id= $request->input('categorie_id');
 
+       /*$imagesFile  = $request->file('image_articles');
+       foreach($request->image_articles as $image){
+           $image_articles = uploadFile($imagesFile);
+       }*/
+
        $article    = ArticleRepository::create($name, $price, $old_price, $description, $brand, $weight, $size, $color, $availablity, $ref, $image, $categorie_id);
        return response()->json(['status' => 'success', 'message' => 'article created successfully'], 200);
-        /*$validator=Validator::make($request->all(),[
-        'name'=>'required',
-        'price'=>'required',
-        'description'=>'required',
-        'brand'=>'required',
-        //'image'=>'required|image',
 
-        ]);
-        if($validator->fails())
-        {
-            return response()->json(['error'=>$validator->errors()->all()],409);
-        }
-        $article = new Article();
-        $article->name=$request->name;
-        $article->price=$request->price;
-        $article->old_price=$request->old_price;
-        $article->description=$request->description;
-        $article->brand=$request->brand;
-        $article->weight=$request->weight;
-        $article->size=$request->size;
-        $article->color=$request->color;
-        $article->availablity=$request->availablity;
-        $article->ref=$request->ref;
-        $article->image=$request->image;
-        $article->categorie_id=$request->categorie_id;
-        $article->save();
 
-        //storage image
-        /*$url = "http://localhost:8000/storage/";
-        $file = $request->file('image');
-        $extension = $file->getClientOriginalExtension();
-        $path = $request->file('image')->storeAs('proimages/', $article->id.'.'.$extension);
-        $article->image=$path;
-        $article->imgpath=$url.$path;
-        $article->save();*/
     }
 
+    ////////function update article//////////
       public function update(ArticleUpdateRequest $request, $id)
          {
             $name        = $request->input('name');
@@ -89,6 +62,7 @@ class ArticleController extends Controller
               return response()->json(['status' => 'success', 'message' => 'article updated successfully'], 200);
          }
 
+    ////////////function delete article/////////////
       public function delete($id)
 
              {
@@ -102,6 +76,7 @@ class ArticleController extends Controller
 
              }
 
+    //////////function show article////////////
       public function show($id)
     {
         $article = Article::find($id);
@@ -112,29 +87,7 @@ class ArticleController extends Controller
             return response()->json(['success' => false,'message' => 'article Not Found!','data'    => ''], 404);
         }
     }
-            /*$validator=Validator::make($request->all(),[
-            'id'=>'required',
 
-            ]);
-            if($validator->fails())
-            {
-                return response()->json(['error'=>$validator->errors()->all()],409);
-            }
-            $article=article::find($request->id->delete);
-
-            return response()->json(['message'=>"Article Successfully deleted"]);*/
-            /*session(['keys'=>$request->keys]);
-            $article=article::where(function($q){
-                $q->where('articles.id','LIKE','%', session('keys').'%')
-                  ->orwhere('articles.name','LIKE','%'.session('keys').'%')
-                  ->orwhere('articles.price','LIKE','%'.session('keys').'%')
-                  ->orwhere('articles.description','LIKE','%'.session('keys').'%')
-                  ->orwhere('articles.brand','LIKE','%'.session('keys').'%');
-
-            })->select('articles.*')->get();
-            return response()->json(['articles'=>$articles]);
-            }
-            */
 
 
 }
