@@ -24,6 +24,7 @@ Route::post('/article/add','App\Http\Controllers\ArticleController@add');
 Route::post('/article/{id}', 'App\Http\Controllers\ArticleController@update');
 Route::delete('/article/{id}', 'App\Http\Controllers\ArticleController@delete');
 Route::get('/article/show/{id}', 'App\Http\Controllers\ArticleController@show');
+Route::get('/article/search/{name}', 'App\Http\Controllers\ArticleController@search');
 
 /////////Categorie routes/////////
 Route::post('/categorie/add','App\Http\Controllers\CategorieController@create');
@@ -39,7 +40,7 @@ Route::delete('/SousCategorie/{id}', 'App\Http\Controllers\SousCategorieControll
 Route::get('/SousCategorie/show/{id}', 'App\Http\Controllers\SousCategorieController@show');
 
 
-//user routes
+////////////user routes///////////
 Route::post('/register', 'App\Http\Controllers\UserController@register');
 Route::post('/login', 'App\Http\Controllers\UserController@login');
 

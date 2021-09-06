@@ -28,7 +28,7 @@ class userController extends Controller
 
         }
 
-     ////////function login///////////
+     //////////function login///////////
      public function login(Request  $request) {
 
      $validator=Validator::make($request->all(),[

@@ -48,7 +48,7 @@ Class ArticleRepository
             return $article;
         }
 
-        public function update($name, $price, $old_price, $description, $brand, $weight, $size, $color, $availablity, $ref, $categorie_id)
+        public function update($name, $price, $old_price, $description, $brand, $weight, $size, $color, $availablity, $ref, $image, $categorie_id)
         {
 
             $this->article->name        = $name;
@@ -60,6 +60,8 @@ Class ArticleRepository
             $this->article->size        = $size;
             $this->article->color       = $color;
             $this->article->availablity = $availablity;
+            $this->article->ref         = $ref;
+            $this->article->image       = $image;
             $this->article->categorie_id= $categorie_id;
 
             return $this->article->save();

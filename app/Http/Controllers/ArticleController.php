@@ -8,9 +8,15 @@ use App\Http\Repository\ArticleRepository;
 use App\Http\Requests\ArticleUpdateRequest;
 use App\Http\Requests\ArticleCreateRequest;
 use function App\Http\Helpers\uploadFile;
-//use function App\Http\Helpers\helpers\uploadFile ;
+
 class ArticleController extends Controller
 {
+
+    public function index()
+    {
+        return view('FrontEnd.home');
+    }
+
     ///////////function add article///////////
       public function add(ArticleCreateRequest $request)
    {
@@ -34,7 +40,8 @@ class ArticleController extends Controller
            $image_articles = uploadFile($imagesFile);
        }*/
 
-       $article    = ArticleRepository::create($name, $price, $old_price, $description, $brand, $weight, $size, $color, $availablity, $ref, $image, $categorie_id);
+       $article    = ArticleRepository::create($name, $price, $old_price, $description, $brand, $weight,
+           $size, $color, $availablity, $ref, $image, $categorie_id);
        return response()->json(['status' => 'success', 'message' => 'article created successfully'], 200);
 
 
@@ -53,11 +60,13 @@ class ArticleController extends Controller
             $color       = $request->input('color');
             $availablity = $request->input('availablity');
             $ref         = $request->input('ref');
+            $imageFile   = $request->file('image');
+            $image       = uploadFile($imageFile);
             $categorie_id= $request->input('categorie_id');
 
             $article = Article::findOrFail($id);
             $articleRepository = new ArticleRepository($article);
-            $article = $articleRepository->update($name, $price, $old_price, $description, $brand, $weight, $size, $color, $availablity, $ref, $categorie_id, $id);
+            $article = $articleRepository->update($name, $price, $old_price, $description, $brand, $weight, $size, $color, $availablity, $ref, $image, $categorie_id, $id);
 
               return response()->json(['status' => 'success', 'message' => 'article updated successfully'], 200);
          }
@@ -88,6 +97,13 @@ class ArticleController extends Controller
         }
     }
 
+
+
+    //////////function search with name /////////
+    function search($name)
+    {
+          return Article::where("name","like","%".$name."%")->get();
+    }
 
 
 }

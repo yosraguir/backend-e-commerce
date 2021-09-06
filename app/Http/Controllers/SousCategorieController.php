@@ -11,7 +11,7 @@ use App\Http\Repository\SousCategorieRepository;
 
 class SousCategorieController extends Controller
 {
-    //function create sous_categorie
+    ///////////function create sous_categorie///////////
     public function create(SousCategorieCreateRequest $request)
             {
                 $name                = $request->input('name');
@@ -21,7 +21,7 @@ class SousCategorieController extends Controller
 
             }
 
-    //function update sous_categorie
+    ////////////function update sous_categorie///////////
     public function update(SousCategorieUpdateRequest $request, $id)
              {
                 $name                    = $request->input('name');
@@ -34,7 +34,7 @@ class SousCategorieController extends Controller
                   return response()->json(['status' => 'success', 'message' => 'Sous_Categorie updated successfully'], 200);
              }
 
-    //function delete sous_categorie
+    ////////////function delete sous_categorie////////////
     public function delete($id)
 
                      {
@@ -48,7 +48,7 @@ class SousCategorieController extends Controller
 
                      }
 
-    //function show sous_categorie
+    ////////////function show sous_categorie//////////
     public function show($id)
                      {
                           $sousCategorie = Sous_Categorie::find($id);
